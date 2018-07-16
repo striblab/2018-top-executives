@@ -1,8 +1,14 @@
 # 2018 Top Executives
 
-List of MN top executives 
+List of MN top executives
 
+## Data
 
+Data manually created and aggregated by the Star Tribune. Data manged in our Data UI project. The following environment variables are needed to pull data from there (can be managed in a `.env` file):
+
+- `DATA_UI_USERNAME`
+- `DATA_UI_API_KEY`
+- `DATA_UI_LOCATION`: Base URL of Data UI location, without a trailing slash.
 
 ## Publishing
 
