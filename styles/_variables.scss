@@ -1,0 +1,16 @@
+/**
+ * Variabls and strib styles overrides.
+ */
+
+// Override font sizes
+$breakpoints-font-size: (
+  default: 16px,
+  xs: 14px,
+  sm: 14px,
+  md: 16px,
+  lg: 16px,
+  xl: 16px
+);
+
+// Categories
+$category-colors: #EBE3D3, #D5E1EC, #EDD4D4, #DBE3CE, #D6D6E6, #B7B78A;

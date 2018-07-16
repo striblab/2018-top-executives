@@ -1,0 +1,58 @@
+/**
+ * Filters and sorting.
+ */
+
+form.inline-form {
+  display: flex;
+  padding-bottom: 1em;
+  border-bottom: 3px solid #676767;
+  margin-bottom: 2em;
+  text-align: center;
+
+  .inline-form-element {
+    label,
+    & > div {
+      display: inline-block;
+    }
+
+    label {
+      margin-right: 1em;
+    }
+  }
+
+  button {
+    padding: 0.5em;
+  }
+}
+
+.controls {
+  margin-bottom: 1.5em;
+
+  button {
+    margin-bottom: 0.5em;
+    font-size: 0.9em;
+    color: $color-text;
+    border: 2px solid transparent;
+    background-color: $color-white;
+  }
+
+  button.active {
+    background-color: $color-white;
+    border: 2px solid #767676;
+  }
+
+  @each $c in $category-colors {
+    $i: index($category-colors, $c);
+
+    .category-color-#{$i} {
+      background-color: $c;
+      border: 2px solid transparent;
+
+      &.active,
+      &:hover {
+        background-color: darken($c, 20%);
+        border: 2px solid #767676;
+      }
+    }
+  }
+}
