@@ -12,8 +12,8 @@
     display: flex;
 
     label {
-      display: inline-block;
-      margin-right: 1em;
+        display: inline-block;
+        margin-right: 1em;
     }
 
     button {
@@ -38,23 +38,71 @@
   }
 
   #show-list-type {
-    button {
-      background-color: #BBBBBB;
 
-      &:hover {
-        background-color: darken(#BBBBBB, 20%);
-        border: 2px solid #767676;
+      @media (max-width: 767px) {
+          display: flex;
+          justify-content: space-between;
+          flex-flow: row wrap;
+          width: 100%;
+          margin-bottom: 1em;
       }
 
-      &.active {
-        color: #FFFFFF;
-        background-color: #454545;
+
+      button,
+      label {
+          @media (max-width: 767px) {
+              width: 48%;
+              margin-right: 0;
+          }
+
       }
-    }
+
+      button {
+          background-color: #BBBBBB;
+          
+            &:hover {
+              background-color: darken(#BBBBBB, 20%);
+              border: 2px solid #767676;
+          }
+
+          &.active {
+              color: #FFFFFF;
+              background-color: #454545;
+          }
+ 
+      }
+
+
+      label {
+          background-color: $color-white;
+
+          @media (max-width: 767px) {
+              margin-top: .25em;
+              ;
+          }
+
+      }
+
   }
+    
+    
 
   #filter-category {
-    button {
+      
+    @media (max-width: 767px) {
+        display: flex;
+        justify-content: space-between;
+        flex-flow: row wrap;
+        width: 100%;
+    }
+      
+      
+    button, label {
+             @media (max-width: 767px) {
+             width: 48%;
+
+        }
+        
       background-color: $color-white;
 
       &.active {
@@ -63,12 +111,22 @@
       }
     }
 
+      label {
+          background-color: #FFFFFF;
+
+          @media (max-width: 767px) {
+              margin-top: .25em;
+              margin-right: 0;
+          }
+      }
+      
     @each $c in $category-colors {
       $i: index($category-colors, $c);
 
       .category-color-#{$i} {
         background-color: $c;
         border: 2px solid transparent;
+          
 
         &.active,
         &:hover {
