@@ -8,7 +8,9 @@
 
 // Dependencies
 
-// Use jQuery because its on the page and we are lazy.
+// Use jQuery because its on the page and we are lazy, and laoding in the data
+// is a bit expensive.
+
 // Filter category buttons
 $('#filter-category button').on('click', e => {
   e.preventDefault();
@@ -38,7 +40,6 @@ function filterExecutives() {
   // Get current filters
   let categoryFilter = $('#filter-category button.active').data('value');
   let listFilter = $('#show-list-type button.active').data('value');
-  console.log(categoryFilter, listFilter);
 
   // Remove mark
   $('.executive,.non-ceo-title').removeClass('filtered');

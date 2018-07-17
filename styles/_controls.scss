@@ -2,26 +2,24 @@
  * Filters and sorting.
  */
 
-form.inline-form {
-  display: flex;
+#controls-form {
   padding-bottom: 1em;
   border-bottom: 3px solid #676767;
   margin-bottom: 2em;
   text-align: center;
 
   .inline-form-element {
-    label,
-    & > div {
-      display: inline-block;
-    }
+    display: flex;
 
     label {
+      display: inline-block;
       margin-right: 1em;
     }
-  }
 
-  button {
-    padding: 0.5em;
+    button {
+      display: inline-block;
+      padding: 0.5em;
+    }
   }
 }
 
@@ -42,22 +40,27 @@ form.inline-form {
   #show-list-type {
     button {
       background-color: #BBBBBB;
-    }
 
-    button.active {
-      color: #FFFFFF;
-      background-color: #454545;
+      &:hover {
+        background-color: darken(#BBBBBB, 20%);
+        border: 2px solid #767676;
+      }
+
+      &.active {
+        color: #FFFFFF;
+        background-color: #454545;
+      }
     }
   }
 
   #filter-category {
     button {
       background-color: $color-white;
-    }
 
-    button.active {
-      background-color: $color-white;
-      border: 2px solid #767676;
+      &.active {
+        background-color: $color-white;
+        border: 2px solid #767676;
+      }
     }
 
     @each $c in $category-colors {

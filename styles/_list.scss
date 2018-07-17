@@ -71,7 +71,17 @@
     margin-bottom: 0.5em;
   }
 
+  .footnotes {
+    font-size: 0.85em;
+    color: #565656;
+    margin-bottom: (1 / 0.85) em;
+  }
+
   .data-row {
+    ul {
+      margin: 0;
+    }
+
     li {
       margin-bottom: 0.5em;
     }

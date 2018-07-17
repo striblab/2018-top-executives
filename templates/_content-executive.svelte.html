@@ -29,6 +29,10 @@
       <div class="officer-title">{ officer.salaries[publishYear].title } of { officer.company.name }</div>
 
       <p>{ officer.company.shortdesc }</p>
+
+      {#if officer.salaries[publishYear].footnotes }
+        <p class="footnotes">{ officer.salaries[publishYear].footnotes }</p>
+      {/if}
     </div>
   </div>
 

@@ -28,7 +28,7 @@
       <div class="controls">
         <h1 aria-label="controls-form" class="sr-only">Controls to adjust list of executives</h1>
 
-        <form class="inline-form" id="controls-form">
+        <form id="controls-form">
           <div class="inline-form-element">
             <label for="show-list-type">Show:</label>
             <div id="show-list-type" role="group">
@@ -44,7 +44,10 @@
               <button type="button" data-value="" class="active">All</button>
 
               {#each categories as category, ci}
-                <button class="category-color-{ ci + 1 }" type="button" data-value="{ kebabCase(category) }">{ category }</button>
+                <button
+                  class="category-color-{ ci + 1 }"
+                  type="button"
+                  data-value="{ kebabCase(category) }">{ category }</button>&nbsp;
               {/each}
             </div>
           </div>
