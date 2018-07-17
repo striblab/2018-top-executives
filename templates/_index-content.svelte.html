@@ -30,6 +30,15 @@
 
         <form class="inline-form" id="controls-form">
           <div class="inline-form-element">
+            <label for="show-list-type">Show:</label>
+            <div id="show-list-type" role="group">
+              <button type="button" data-value="" class="active">Top 100 CEOs</button>
+              <button type="button" data-value="top-female">Top female executives</button>
+              <button type="button" data-value="top-non-ceo">Top non-CEOs</button>
+            </div>
+          </div>
+
+          <div class="inline-form-element">
             <label for="filter-category">Filter:</label>
             <div id="filter-category" role="group">
               <button type="button" data-value="" class="active">All</button>
@@ -42,128 +51,16 @@
         </form>
       </div>
 
-      <h1 aria-label="executives-list" class="sr-only">List of companies</h1>
+      <h1 aria-label="executives-list" class="sr-only">List of executives</h1>
       <div class="executives-list">
         {#each ceoTop as c}
-          <div class="executive category-color-{ c.company.category ? categories.indexOf(c.company.category) + 1 : 'none' }"
-            data-officer-id="{ c.coid }"
-            data-company-id="{ c.company.coid }"
-            data-category="{ kebabCase(c.company.category) }">
-            <div class="row">
-              <div class="col col-20 col-md-30">
-                <div class="row">
-                  <div class="col col-100 col-md-50">
-                    <div class="rank">
-                      { c.salaries[publishYear].rank }
-                    </div>
-                  </div>
+          <Executive officer="{ c }" { publishYear } { categories } executiveClass="executive-ceo" />
+        {/each}
 
-                  <div class="col col-100 col-md-50">
-                    {#if c.hasimage }
-                      <img src="./assets/images/executives/{ c.id }.jpg" alt="Headshot of { officerName(c) }" />
-                    {:else}
-                      <img src="./assets/images/generic-headshot.jpg" alt="Generic headshot image" />
-                    {/if}
-                  </div>
-                </div>
-              </div>
+        <h1 class="non-ceo-title">Non-CEO executives</h1>
 
-              <div class="col col-80 col-md-70">
-                <h2>{ officerName(c) }</h2>
-
-                <div class="officer-title">{ c.salaries[publishYear].title } of { c.company.name }</div>
-
-                <p>{ c.company.shortdesc }</p>
-              </div>
-            </div>
-
-            <div class="row data-row">
-              <div class="col col-0 col-md-15">&nbsp;</div>
-
-              <div class="col col-100 col-md-35">
-                <ul>
-                  <li class="main-financial">
-                    <span class="main-financial-value">
-                      ${ millions(c.salaries[publishYear].calculated_total_value).toLocaleString() }
-                    </span> million in total compensation
-                  </li>
-
-                  <li class="main-financial">
-                    <span class="main-financial-value">
-                      { percentChange(c.salaries, publishYear, 'calculated_total_value') ?
-                        percentChange(c.salaries, publishYear, 'calculated_total_value').toLocaleString() + '%' :
-                        'n/a' }
-                    </span> change from { publishYear - 1}
-                  </li>
-
-                  <li>
-                    CEO pay ratio
-                    {#if c.salaries[publishYear].ceopayratio }
-                      <strong>{ c.salaries[publishYear].ceopayratio.toLocaleString() }:1</strong>
-                    {:else}
-                      <strong><span title="Unknown pay ratio">&mdash</span></strong>
-                    {/if}
-                  </li>
-
-                  <li>Median compensation
-                    {#if c.salaries[publishYear].medianemployeepay }
-                      <strong>${ c.salaries[publishYear].medianemployeepay.toLocaleString() }</strong>
-                    {:else}
-                      <strong><span title="Unknown median employee pay">&mdash</span></strong>
-                    {/if}
-                  </li>
-                </ul>
-              </div>
-
-              <div class="col col-100 col-md-25">
-                <ul>
-                  <li>
-                    Salary
-                    <strong>${ millions(c.salaries[publishYear].salary || 0).toLocaleString() } million</strong>
-                  </li>
-
-                  <li>
-                    Bonus
-                    <strong>${ (c.salaries[publishYear].bonus || 0).toLocaleString() }</strong>
-                  </li>
-
-                  <li>
-                    Non-equity IPC
-                    <strong>${ (c.salaries[publishYear].nonequityipc || 0).toLocaleString() }</strong>
-                  </li>
-
-                  <li>
-                    All other
-                    <strong>${ (c.salaries[publishYear].allothertotal || 0).toLocaleString() }</strong>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="col col-100 col-md-25">
-                <ul>
-                  <li>
-                    Stock options
-                    <strong>${ (c.salaries[publishYear].stockoptions || 0).toLocaleString() }</strong>
-                  </li>
-
-                  <li>
-                    Shares vesting
-                    <strong>${ (c.salaries[publishYear].sharesvesting || 0).toLocaleString() }</strong>
-                  </li>
-
-                  <li>
-                    Stock change
-                    <strong>{ (c.salaries[publishYear].stockchange || 0).toLocaleString() }%</strong>
-                  </li>
-
-                  <li>
-                    { publishYear - 1 } Top-50 ranking:
-                    <strong>{ c.salaries[publishYear - 1] ? c.salaries[publishYear - 1].rank : 'n/a' }</strong>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+        {#each nonCeoTop as n}
+          <Executive officer="{ n }" { publishYear } { categories } executiveClass="executive-non-ceo" />
         {/each}
       </div>
     </main>
@@ -182,14 +79,27 @@
 
 <script>
   import _ from "lodash";
+  import Executive from "./_content-executive.svelte.html";
 
   export default {
+    components: {
+      Executive
+    },
+
     computed: {
       // Top 50
       ceoTop: ({ executives, publishYear }) => {
         return _.take(
           _.sortBy(executives.ceo, o => o.salaries[publishYear].rank),
           50
+        );
+      },
+
+      // Top non-xeo
+      nonCeoTop: ({ executives, publishYear }) => {
+        return _.take(
+          _.sortBy(executives.nonceo, o => o.salaries[publishYear].rank),
+          25
         );
       },
 
@@ -200,37 +110,7 @@
     },
 
     helpers: {
-      kebabCase: _.kebabCase,
-
-      // Officer name
-      officerName(o) {
-        return `${
-          o.salut && !o.salut.match(/(mr|ms|mrs)/i) ? o.salut + " " : ""
-        }${_.filter([o.first, o.middle, o.last]).join(" ")}${
-          o.lineage ? ", " + o.lineage : ""
-        }`;
-      },
-
-      // Format in millions
-      millions(i) {
-        if (!i) {
-          return 0;
-        }
-
-        return Math.round(i / 100000 * 10) / 10;
-      },
-
-      // Find percent change
-      percentChange(set, year, value) {
-        let c = set[year] ? set[year][value] : 0;
-        let p = set[year - 1] ? set[year - 1][value] : undefined;
-
-        if (!p) {
-          return undefined;
-        }
-
-        return Math.round((c - p) / p * 100 * 10) / 10;
-      }
+      kebabCase: _.kebabCase
     },
 
     // Default data

@@ -2,11 +2,22 @@
  * Styles for list.
  */
 
+.non-ceo-title {
+  padding: 0;
+  font-size: 2em;
+  margin-bottom: 1em;
+  display: none;
+}
+
 .executive {
   padding-bottom: 2em;
   border-bottom: 2px solid #E8E8E8;
   margin-bottom: 2em;
   list-style: none;
+
+  &.executive-non-ceo {
+    display: none;
+  }
 
   p {
     @include font-styles("benton-sans");

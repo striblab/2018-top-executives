@@ -33,25 +33,45 @@ form.inline-form {
     font-size: 0.9em;
     color: $color-text;
     border: 2px solid transparent;
-    background-color: $color-white;
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(200, 200, 200, 0.3);
+    }
   }
 
-  button.active {
-    background-color: $color-white;
-    border: 2px solid #767676;
+  #show-list-type {
+    button {
+      background-color: #BBBBBB;
+    }
+
+    button.active {
+      color: #FFFFFF;
+      background-color: #454545;
+    }
   }
 
-  @each $c in $category-colors {
-    $i: index($category-colors, $c);
+  #filter-category {
+    button {
+      background-color: $color-white;
+    }
 
-    .category-color-#{$i} {
-      background-color: $c;
-      border: 2px solid transparent;
+    button.active {
+      background-color: $color-white;
+      border: 2px solid #767676;
+    }
 
-      &.active,
-      &:hover {
-        background-color: darken($c, 20%);
-        border: 2px solid #767676;
+    @each $c in $category-colors {
+      $i: index($category-colors, $c);
+
+      .category-color-#{$i} {
+        background-color: $c;
+        border: 2px solid transparent;
+
+        &.active,
+        &:hover {
+          background-color: darken($c, 20%);
+          border: 2px solid #767676;
+        }
       }
     }
   }

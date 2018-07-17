@@ -2,35 +2,71 @@
  * Main JS file for project.
  */
 
-// Define globals that are added through the js.globals in
-// the config.json file, here like this:
-// /* global _ */
+// Define globals that are added through the config.json file, here like this:
+/* global $ */
+'use strict';
 
-// Utility functions, such as Pym integration, number formatting,
-// and device checking
+// Dependencies
 
-//import utilsFn from './utils.js';
-//utilsFn({ });
+// Use jQuery because its on the page and we are lazy.
+// Filter category buttons
+$('#filter-category button').on('click', e => {
+  e.preventDefault();
+  let $this = $(e.currentTarget);
 
+  // Class
+  $('#filter-category button').removeClass('active');
+  $this.addClass('active');
 
-// Import local ES6 modules like this:
-//import utilsFn from './utils.js';
+  filterExecutives();
+});
 
-// Or import libraries installed with npm like this:
-// import module from 'module';
+// Show list types
+$('#show-list-type button').on('click', e => {
+  e.preventDefault();
+  let $this = $(e.currentTarget);
 
-// Utilize templates on the client.  Get the main content template.
-//import Content from '../templates/_index-content.svelte.html';
-//
-// Get the data parts that are needed.  For larger data points,
-// utilize window.fetch.  Add the build = true option in the buildData
-// options.
-//import content from '../content.json';
-// OR: let content = await (await window.fetch('./assets/data/content.json')).json();
-//
-// const app = new Content({
-//   target: document.querySelector('.main-app-container'),
-//   data: {
-//     content
-//   }
-// });
+  // Class
+  $('#show-list-type button').removeClass('active');
+  $this.addClass('active');
+
+  filterExecutives();
+});
+
+// Filter
+function filterExecutives() {
+  // Get current filters
+  let categoryFilter = $('#filter-category button.active').data('value');
+  let listFilter = $('#show-list-type button.active').data('value');
+  console.log(categoryFilter, listFilter);
+
+  // Remove mark
+  $('.executive,.non-ceo-title').removeClass('filtered');
+
+  // Filter category first
+  if (categoryFilter) {
+    $(`.executive:not([data-category="${categoryFilter}"])`).addClass(
+      'filtered'
+    );
+  }
+
+  // Filter list
+  if (listFilter === 'top-female') {
+    $('.non-ceo-title').addClass('filtered');
+    $('.executive.executive-non-ceo').addClass('filtered');
+    $('.executive.executive-ceo:not([data-gender="F"])').addClass('filtered');
+  }
+  else if (listFilter === 'top-non-ceo') {
+    $('.executive.executive-ceo').addClass('filtered');
+  }
+  else {
+    $('.non-ceo-title').addClass('filtered');
+    $('.executive.executive-non-ceo').addClass('filtered');
+  }
+
+  // Hide filtered
+  $('.executive.filtered,.non-ceo-title.filtered').slideUp('fast');
+  $('.executive:not(.filtered),.non-ceo-title:not(.filtered)').slideDown(
+    'fast'
+  );
+}
