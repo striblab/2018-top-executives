@@ -8,7 +8,7 @@
         <h1><span class="sub-title">The 27<sup>th</sup> annual report</span>
       </h1>
 
-      <p class="lead container-md">The Star Tribune annually looks at the compensation of the highest paid CEOs of Minnesota public companies. Last year the 50 executives had total compensation of $433.9 million an increase of 25 percent over the amount they took home the previous year.</p> 
+      <p class="lead container-md">The Star Tribune annually looks at the compensation of the highest paid CEOs of Minnesota public companies. Last year the 50 executives had total compensation of $433.9 million an increase of 25 percent over the amount they took home the previous year.</p>
 <p class="lead container-md">Good corporate performance helped 42 of the CEOs earn annual bonuses and a strong stock market in 2017 helped increase the value of long-term equity awards: 17 executives exercised stock options during the past year worth a collective $163.9 million, and 39 of the CEOs realized $138.2 million from the value of  restricted stock that vested during the year.</p>
 
       <div class="byline">
@@ -18,7 +18,7 @@
         <span class="spacer"></span>
         Star Tribune
         <span class="spacer-alt"></span>
-        <time pubdate datetime="2018-06-17T16:00:00">June 17, 2018</time>
+        <time pubdate datetime="2018-07-22T00:00:00">July 22, 2018</time>
       </div>
 
       <div class="sharing-placeholder">
@@ -60,11 +60,19 @@
 
       <h1 aria-label="executives-list" class="sr-only">List of executives</h1>
       <div class="executives-list">
+        <h1 class="sub-list-title ceo-title">Top 50 CEOs</h1>
+
         {#each ceoTop as c}
           <Executive officer="{ c }" { publishYear } { categories } executiveClass="executive-ceo" />
         {/each}
 
-        <h1 class="non-ceo-title">Non-CEO executives</h1>
+        <h1 class="sub-list-title female-executive-title">Top female executives</h1>
+
+        {#each femaleExecutives as f}
+          <Executive officer="{ f }" { publishYear } { categories } executiveClass="executive-female" />
+        {/each}
+
+        <h1 class="sub-list-title non-ceo-title">Non-CEO executives</h1>
 
         {#each nonCeoTop as n}
           <Executive officer="{ n }" { publishYear } { categories } executiveClass="executive-non-ceo" />
@@ -77,7 +85,7 @@
 <p><b>Methodology:</b> Information on the largest CEO pay packages comes from the company's annual proxy or other corporate filing with the Securities and Exchange Commission.
 The Star Tribune counts total compensation as the sum of salary, bonus, cash-based incentive plan compensation, miscellaneous compensation, and the value of exercised stock options and restricted stock that has vested during the year.</p>
 
-<p>The SEC prescribes companies to disclose executive compensation in they summary compensation table of the proxy as salary, bonus, cash-based incentive plan compensation, miscellaneous compensation, and the grant date value of new stock options and restricted stock awards.</p> 
+<p>The SEC prescribes companies to disclose executive compensation in they summary compensation table of the proxy as salary, bonus, cash-based incentive plan compensation, miscellaneous compensation, and the grant date value of new stock options and restricted stock awards.</p>
 
 <p>The newly required CEO pay ratio is based on the CEO’s total compensation from the summary compensation table as prescribed by the SEC.. Due to timing or company size half the company's have not yet reported their CEO pay ration and median employee compensation.</p>
 
@@ -105,11 +113,19 @@ The Star Tribune counts total compensation as the sum of salary, bonus, cash-bas
         );
       },
 
-      // Top non-xeo
+      // Top non-ceo
       nonCeoTop: ({ executives, publishYear }) => {
         return _.take(
           _.sortBy(executives.nonceo, o => o.salaries[publishYear].rank),
-          25
+          10
+        );
+      },
+
+      // Female executies
+      femaleExecutives: ({ executives, publishYear }) => {
+        return _.take(
+          _.sortBy(executives.female, o => o.salaries[publishYear].rank),
+          10
         );
       },
 

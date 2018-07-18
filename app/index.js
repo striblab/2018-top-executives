@@ -42,7 +42,7 @@ function filterExecutives() {
   let listFilter = $('#show-list-type button.active').data('value');
 
   // Remove mark
-  $('.executive,.non-ceo-title').removeClass('filtered');
+  $('.executive').removeClass('filtered');
 
   // Filter category first
   if (categoryFilter) {
@@ -51,23 +51,26 @@ function filterExecutives() {
     );
   }
 
+  // Remove titles
+  $('.sub-list-title').addClass('filtered');
+
   // Filter list
   if (listFilter === 'top-female') {
-    $('.non-ceo-title').addClass('filtered');
-    $('.executive.executive-non-ceo').addClass('filtered');
-    $('.executive.executive-ceo:not([data-gender="F"])').addClass('filtered');
+    $('.female-executive-title').removeClass('filtered');
+    $('.executive:not(.executive-female)').addClass('filtered');
   }
   else if (listFilter === 'top-non-ceo') {
-    $('.executive.executive-ceo').addClass('filtered');
+    $('.non-ceo-title').removeClass('filtered');
+    $('.executive:not(.executive-non-ceo)').addClass('filtered');
   }
   else {
-    $('.non-ceo-title').addClass('filtered');
-    $('.executive.executive-non-ceo').addClass('filtered');
+    $('.ceo-title').removeClass('filtered');
+    $('.executive:not(.executive-ceo)').addClass('filtered');
   }
 
   // Hide filtered
-  $('.executive.filtered,.non-ceo-title.filtered').slideUp('fast');
-  $('.executive:not(.filtered),.non-ceo-title:not(.filtered)').slideDown(
+  $('.executive.filtered,.sub-list-title.filtered').slideUp('fast');
+  $('.executive:not(.filtered),.sub-list-title:not(.filtered)').slideDown(
     'fast'
   );
 }
