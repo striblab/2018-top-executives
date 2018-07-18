@@ -2,11 +2,16 @@
  * Styles for list.
  */
 
-.non-ceo-title {
+.sub-list-title {
   padding: 0;
   font-size: 2em;
   margin-bottom: 1em;
   display: none;
+
+  // Default view
+  &.ceo-title {
+    display: block;
+  }
 }
 
 .executive {
@@ -15,6 +20,8 @@
   margin-bottom: 2em;
   list-style: none;
 
+  // Default view
+  &.executive-female,
   &.executive-non-ceo {
     display: none;
   }

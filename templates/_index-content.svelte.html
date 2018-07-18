@@ -58,11 +58,19 @@
 
       <h1 aria-label="executives-list" class="sr-only">List of executives</h1>
       <div class="executives-list">
+        <h1 class="sub-list-title ceo-title">Top 50 CEOs</h1>
+
         {#each ceoTop as c}
           <Executive officer="{ c }" { publishYear } { categories } executiveClass="executive-ceo" />
         {/each}
 
-        <h1 class="non-ceo-title">Non-CEO executives</h1>
+        <h1 class="sub-list-title female-executive-title">Top female executives</h1>
+
+        {#each femaleExecutives as f}
+          <Executive officer="{ f }" { publishYear } { categories } executiveClass="executive-female" />
+        {/each}
+
+        <h1 class="sub-list-title non-ceo-title">Non-CEO executives</h1>
 
         {#each nonCeoTop as n}
           <Executive officer="{ n }" { publishYear } { categories } executiveClass="executive-non-ceo" />
@@ -100,11 +108,19 @@
         );
       },
 
-      // Top non-xeo
+      // Top non-ceo
       nonCeoTop: ({ executives, publishYear }) => {
         return _.take(
           _.sortBy(executives.nonceo, o => o.salaries[publishYear].rank),
-          25
+          10
+        );
+      },
+
+      // Female executies
+      femaleExecutives: ({ executives, publishYear }) => {
+        return _.take(
+          _.sortBy(executives.female, o => o.salaries[publishYear].rank),
+          10
         );
       },
 
