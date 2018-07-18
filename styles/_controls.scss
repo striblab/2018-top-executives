@@ -51,12 +51,16 @@
       button,
       label {
           @media (max-width: 767px) {
-              width: 48%;
+              width: 49%;
               margin-right: 0;
           }
 
       }
 
+
+      
+      
+      
       button {
           background-color: #BBBBBB;
           
@@ -88,29 +92,36 @@
     
 
   #filter-category {
-      
-    @media (max-width: 767px) {
-        display: flex;
-        justify-content: space-between;
-        flex-flow: row wrap;
-        width: 100%;
-    }
-      
-      
-    button, label {
-             @media (max-width: 767px) {
-             width: 48%;
-margin-right: 0;
-        }
-        
-      background-color: $color-white;
 
-      &.active {
-        background-color: $color-white;
-        border: 2px solid #767676;
+      @media (max-width: 767px) {
+          display: flex;
+          justify-content: space-between;
+          flex-flow: row wrap;
+          width: 100%;
       }
-    }
 
+
+      button,
+      label {
+          @media (max-width: 767px) {
+              width: 49%;
+          }
+
+          background-color: $color-white;
+
+          &.active {
+              background-color: $color-white;
+              border: 2px solid #767676;
+          }
+
+          &.unique {
+              margin-right: .3em;
+              @media (max-width: 767px) {
+                  margin-right: 0;
+              }
+          }
+      }
+      
       label {
           background-color: #FFFFFF;
 
