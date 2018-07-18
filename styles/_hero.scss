@@ -5,11 +5,16 @@
 .hero h1 {
   margin: 0 auto 0.5em;
   font-size: 4em;
-  line-height: 0.555em;
+  line-height: 0.5em;
+  margin-bottom: .3em;
 
   @include media-breakpoint-up(md) {
     font-size: 5.55em;
-    line-height: 0.75em;
+    line-height: 0.5em;
+  }
+    
+  @media (max-width: 767px) {
+  margin-bottom: .5em;
   }
 
   .sub-title {
@@ -32,6 +37,7 @@
       font-size: 0.5em;
       vertical-align: super;
       padding-left: 0.15em;
+      margin-right: -.5em;  
     }
   }
 }
@@ -39,4 +45,9 @@
 .intro-paragraph {
   margin-top: -1em;
   margin-bottom: 4em;
+}
+
+p.lead.container-md {
+    font-size: 1.25em;
+    width: 100% !important;
 }
