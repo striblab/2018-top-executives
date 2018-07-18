@@ -49,9 +49,9 @@
 
               {#each categories as category, ci}
                 <button
-                  class="category-color-{ ci + 1 }"
+                  class="unique category-color-{ ci + 1 }"
                   type="button"
-                  data-value="{ kebabCase(category) }">{ category }</button>&nbsp;
+                  data-value="{ kebabCase(category) }">{ category }</button>
               {/each}
             </div>
           </div>
